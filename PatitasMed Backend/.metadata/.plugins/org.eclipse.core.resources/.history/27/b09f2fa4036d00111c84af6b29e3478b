@@ -1,0 +1,44 @@
+package com.sena.usuariopatitasmed.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.sena.patitasmed.entity.LoginUsuario;
+import com.sena.patitasmed.repository.LoginUsuarioRepository;
+
+
+@Service
+public class LoginUsuarioServiceImp implements LoginUsuarioService{
+	
+	@Autowired
+	LoginUsuarioRepository loginUsuarioRepository;
+
+	@Override
+	public LoginUsuario save(LoginUsuario lu) {
+		// TODO Auto-generated method stub
+		return loginUsuarioRepository.save(lu);
+	}
+
+	@Override
+	public String login(String user, String ctr) {
+		// TODO Auto-generated method stub
+		LoginUsuario loginUsuario = loginUsuarioRepository.findByUsername(user);
+		
+		if (loginUsuario == null) {
+			
+			return "Usuario no encontrado";
+			
+		}
+			
+		if(!loginUsuario.getPassword().equals(ctr)){
+			
+			return "Contraseña invalida";
+		}
+		
+		return "La sesión fue iniciada con exito";
+	}
+
+
+	
+
+}

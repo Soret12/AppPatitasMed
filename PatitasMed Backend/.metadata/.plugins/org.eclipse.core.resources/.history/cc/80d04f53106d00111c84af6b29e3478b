@@ -1,0 +1,75 @@
+package com.sena.patitasmed.controller;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import com.sena.patitasmed.entity.CitaMedica;
+import com.sena.patitasmed.entity.Mascota;
+import com.sena.patitasmed.service.CitaMedicaService;
+import com.sena.patitasmed.service.MascotaService;
+
+@RestController
+@RequestMapping("/api/citas")
+@CrossOrigin(origins="*",methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE})
+public class CitaMedicaController {
+
+    @Autowired
+    private CitaMedicaService citaService;
+
+    @Autowired
+    private MascotaService mascotaService;
+
+    @GetMapping("/listar")
+    public List<CitaMedica> listarCitas() {
+        return citaService.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public Optional<CitaMedica> buscarPorId(@PathVariable Integer id) {
+        return citaService.findById(id);
+    }
+
+    @PostMapping
+    public CitaMedica registrarCita(@RequestBody CitaMedica c) {
+
+        Mascota mascotaBD =
+                mascotaService.findById(
+                        c.getMascota().getIdMascota()
+                ).get();
+
+        c.setMascota(mascotaBD);
+
+        return citaService.save(c);
+    }
+
+    @PutMapping("/actualizar/{id}")
+    public CitaMedica actualizarCita(
+            @RequestBody CitaMedica c,
+            @PathVariable Integer id) {
+
+        CitaMedica citaBD = citaService.findById(id).get();
+
+        citaBD.setNombreClinica(c.getNombreClinica());
+        citaBD.setNombreVeterinario(c.getNombreVeterinario());
+        citaBD.setFechaCita(c.getFechaCita());
+        citaBD.setObservaciones(c.getObservaciones());
+        citaBD.setEstado(c.getEstado());
+
+        Mascota mascotaBD =
+                mascotaService.findById(
+                        c.getMascota().getIdMascota()
+                ).get();
+
+        citaBD.setMascota(mascotaBD);
+
+        return citaService.save(citaBD);
+    }
+
+    @DeleteMapping("/{id}")
+    public void eliminarCita(@PathVariable Integer id) {
+        citaService.deleteById(id);
+    }
+}

@@ -1,0 +1,13 @@
+package com.sena.patitasmed;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class UsuarioPatitasMedApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(UsuarioPatitasMedApplication.class, args);
+	}
+
+}

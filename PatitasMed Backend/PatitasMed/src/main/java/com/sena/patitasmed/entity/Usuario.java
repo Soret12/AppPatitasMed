@@ -1,0 +1,116 @@
+package com.sena.patitasmed.entity;
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name ="usuario")
+public class Usuario {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id_usuario")
+	private Integer idUsuario;
+    
+    @Column(name="nombre")
+	private String nombre;
+    
+    @Column(name="tipo_documento")
+	private String tipoDocumento;
+    
+    @Column(name="numero_documento")
+	private String numeroDocumento;
+    
+    @Column(name="telefono")
+	private String telefono;
+    
+    @Column(name="email", unique = true)
+	private String email;
+    
+    @Column(name = "username", unique = true)
+    private String username;
+     
+    @Column(name="password")
+ 	private String password;
+    
+	public Usuario(Integer idUsuario, String nombre, String tipoDocumento, String numeroDocumento, String telefono,
+			String email, String username, String password) {
+		super();
+		this.idUsuario = idUsuario;
+		this.nombre = nombre;
+		this.tipoDocumento = tipoDocumento;
+		this.numeroDocumento = numeroDocumento;
+		this.telefono = telefono;
+		this.email = email;
+		this.username = username;
+		this.password = password;
+	}
+
+	public Usuario() {
+		super();
+	}
+
+	public Integer getIdUsuario() {
+		return idUsuario;
+	}
+
+	public void setIdUsuario(Integer idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getTipoDocumento() {
+		return tipoDocumento;
+	}
+
+	public void setTipoDocumento(String tipoDocumento) {
+		this.tipoDocumento = tipoDocumento;
+	}
+
+	public String getNumeroDocumento() {
+		return numeroDocumento;
+	}
+
+	public void setNumeroDocumento(String numeroDocumento) {
+		this.numeroDocumento = numeroDocumento;
+	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+}

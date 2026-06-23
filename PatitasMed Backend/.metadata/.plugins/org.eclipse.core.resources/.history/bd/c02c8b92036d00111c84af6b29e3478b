@@ -1,0 +1,38 @@
+package com.sena.patitasmed.controller;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.sena.usuariopatitasmed.entity.LoginUsuario;
+import com.sena.usuariopatitasmed.service.LoginUsuarioService;
+
+@RestController
+@RequestMapping("/api/loginusuarios")
+public class LoginUsuarioController {
+	
+	@Autowired
+	LoginUsuarioService loginUsuarioService;
+	
+	@PostMapping
+	public LoginUsuario guardarCredenciales(@RequestBody LoginUsuario lu){
+		
+		   return loginUsuarioService.save(lu);
+	}
+	
+	@PostMapping("/validarlogin")
+	public ResponseEntity<String> login(@RequestBody LoginUsuario loginUsuario){
+		
+		String mensaje = loginUsuarioService.login(loginUsuario.getUsername(), loginUsuario.getPassword());
+		
+		return ResponseEntity.ok(mensaje);
+		
+	}
+	
+	
+
+}

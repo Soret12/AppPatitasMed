@@ -1,0 +1,5 @@
+package com.sena.patitasmed.repository;
+
+public interface CitaMedicaRepository {
+
+}

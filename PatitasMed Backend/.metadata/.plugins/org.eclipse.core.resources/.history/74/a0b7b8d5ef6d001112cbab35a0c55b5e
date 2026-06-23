@@ -1,0 +1,46 @@
+package com.sena.patitasmed.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.sena.patitasmed.entity.CitaMedica;
+import com.sena.patitasmed.entity.Mascota;
+import com.sena.patitasmed.repository.CitaMedicaRepository;
+
+@Service
+public class CitaMedicaServiceImpl implements CitaMedicaService {
+
+    @Autowired
+    private CitaMedicaRepository citaRepository;
+    
+    @Override
+    public List<CitaMedica> findByUsuario(Integer idUsuario){
+    	// TODO Auto-generated method stub
+        return citaRepository.findByMascotaUsuarioIdUsuario(idUsuario);
+
+    }
+    
+    
+    @Override
+    public Optional<CitaMedica> findById(Integer id) {
+        return citaRepository.findById(id);
+    }
+
+    @Override
+    public List<CitaMedica> findAll() {
+        return citaRepository.findAll();
+    }
+
+    @Override
+    public CitaMedica save(CitaMedica cita) {
+        return citaRepository.save(cita);
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+        citaRepository.deleteById(id);
+    }
+}

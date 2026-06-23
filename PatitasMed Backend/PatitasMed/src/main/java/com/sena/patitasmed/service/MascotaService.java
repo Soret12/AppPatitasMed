@@ -1,0 +1,16 @@
+package com.sena.patitasmed.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import com.sena.patitasmed.entity.Mascota;
+
+public interface MascotaService {
+	
+	public List<Mascota> findByUsuario(Integer idUsuario);
+    public Optional<Mascota> findById(Integer id);
+	public List<Mascota> findAll();
+    public Mascota save(Mascota m);
+    public void deleteById(Integer id);
+
+}

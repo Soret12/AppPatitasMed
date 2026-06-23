@@ -1,0 +1,97 @@
+package com.sena.patitasmed.controller;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.sena.patitasmed.entity.Usuario;
+import com.sena.patitasmed.service.UsuarioService;
+
+@RestController
+@RequestMapping("/api/usuarios")
+@CrossOrigin(origins="*",methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE})
+public class UsuarioController {
+	
+	@Autowired
+	UsuarioService usuarioService;
+	
+	@PostMapping("/login")
+	public ResponseEntity<Usuario> login(@RequestBody Usuario usuario){
+
+	    Usuario usuarioLogueado = usuarioService.login(usuario.getUsername(),usuario.getPassword());
+
+	    if(usuarioLogueado == null){
+	        return ResponseEntity.badRequest().build();
+	    }
+
+	    return ResponseEntity.ok(usuarioLogueado);
+	}
+	
+	@GetMapping("/{id}")
+	public Optional<Usuario> consultarPorId(@PathVariable Integer id){
+		
+		return usuarioService.findById(id);
+		
+	}
+	
+	@GetMapping("/listar")
+	public List<Usuario> listarUsuarios(){
+		
+		return usuarioService.findAll();
+		
+	}
+	
+	@PostMapping
+	public ResponseEntity<?> registarUsuario(@RequestBody Usuario u) {
+
+	    try {
+
+	        Usuario usuario = usuarioService.save(u);
+
+	        return ResponseEntity.ok(usuario);
+
+	    } catch (RuntimeException e) {
+
+	        return ResponseEntity.badRequest().body(e.getMessage());
+	    }
+	}
+	
+	@PutMapping("/actualizar/{id}")
+	public Usuario actualizarUsuario(@RequestBody Usuario u, @PathVariable Integer id) {
+		
+		Usuario uEnBD = usuarioService.findById(id).get();
+		
+		uEnBD.setNombre(u.getNombre());
+		uEnBD.setTipoDocumento(u.getTipoDocumento());
+		uEnBD.setNumeroDocumento(u.getNumeroDocumento());
+		uEnBD.setTelefono(u.getTelefono());
+		uEnBD.setEmail(u.getEmail());
+		uEnBD.setUsername(u.getUsername());
+		uEnBD.setPassword(u.getPassword());
+		
+		usuarioService.save(uEnBD);
+		
+		return uEnBD;
+		
+	}
+	
+	@DeleteMapping("/{id}")
+	public void eliminarUsuario(@PathVariable Integer id){
+		
+		usuarioService.deleteById(id);
+		
+	}
+
+}

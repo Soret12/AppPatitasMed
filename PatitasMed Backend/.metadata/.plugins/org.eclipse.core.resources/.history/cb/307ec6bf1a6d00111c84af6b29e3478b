@@ -1,0 +1,68 @@
+package com.sena.patitasmed.entity;
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name ="login_usuario")
+public class LoginUsuario {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id_log_usuario")
+	private Integer idLogUsuario;
+    
+    @Column(name="username")
+   	private String username;
+    
+    @Column(name="password")
+   	private String password;
+    
+    @OneToOne
+    @JoinColumn(name="id_usuario")
+    private Usuario usuario;
+	
+	public LoginUsuario(Integer idLogUsuario, String username, String password) {
+		super();
+		
+		this.username= username;
+		this.password=password;
+		
+	}
+
+	public LoginUsuario() {
+		super();
+	}
+
+	public Integer getIdLogUsuario() {
+		return idLogUsuario;
+	}
+
+	public void setIdLogUsuario(Integer idLogUsuario) {
+		this.idLogUsuario = idLogUsuario;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	
+	
+	
+	
+	
+	
+}
+
+	

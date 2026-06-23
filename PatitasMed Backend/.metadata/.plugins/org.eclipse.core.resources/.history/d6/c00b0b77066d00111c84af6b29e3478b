@@ -1,0 +1,55 @@
+package com.sena.patitasmed.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import com.sena.patitasmed.entity.Mascota;
+import com.sena.patitasmed.service.MascotaService;
+
+@RestController
+@RequestMapping("/mascotas")
+@CrossOrigin("*")
+public class MascotaController {
+
+    @Autowired
+    private MascotaService mascotaService;
+
+    @GetMapping
+    public List<Mascota> listarMascotas() {
+        return mascotaService.findAll();
+    }
+
+    @PostMapping
+    public Mascota registrarMascota(@RequestBody Mascota mascota) {
+        return mascotaService.save(mascota);
+    }
+
+    @GetMapping("/{id}")
+    public Mascota buscarMascota(@PathVariable Integer id) {
+        return mascotaService.findById(id);
+    }
+
+    @PutMapping("/{id}")
+    public Mascota actualizarMascota(@RequestBody Mascota mascota,
+            @PathVariable Integer id) {
+
+        Mascota mascotaBD = mascotaService.findById(id);
+
+        mascotaBD.setNombre(mascota.getNombre());
+        mascotaBD.setEspecie(mascota.getEspecie());
+        mascotaBD.setRaza(mascota.getRaza());
+        mascotaBD.setGenero(mascota.getGenero());
+        mascotaBD.setFechaNacimiento(mascota.getFechaNacimiento());
+
+        mascotaService.save(mascotaBD);
+
+        return mascotaBD;
+    }
+
+    @DeleteMapping("/{id}")
+    public void eliminarMascota(@PathVariable Integer id) {
+        mascotaService.deleteById(id);
+    }
+}

@@ -1,0 +1,19 @@
+package com.sena.patitasmed.repository;
+
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.sena.patitasmed.entity.CitaMedica;
+
+
+@Repository
+public interface CitaMedicaRepository extends JpaRepository<CitaMedica, Integer>{
+	
+	List<CitaMedica> findByMascotaUsuarioIdUsuario(Integer idUsuario);
+	
+	List<CitaMedica> findByMascotaIdMascota(Integer idMascota);
+	
+}

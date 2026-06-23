@@ -1,0 +1,16 @@
+package com.sena.patitasmed.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import com.sena.patitasmed.entity.CitaMedica;
+import com.sena.patitasmed.entity.Mascota;
+
+public interface CitaMedicaService {
+	
+	public List<CitaMedica> findByUsuario(Integer idUsuario);
+    public Optional<CitaMedica> findById(Integer id);
+    public List<CitaMedica> findAll();
+    public CitaMedica save(CitaMedica cm);
+    public void deleteById(Integer id);
+}

@@ -1,0 +1,77 @@
+package com.sena.patitasmed.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.sena.patitasmed.entity.Usuario;
+import com.sena.patitasmed.repository.UsuarioRepository;
+
+@Service
+public class UsuarioServiceImpl implements UsuarioService {
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    @Override
+    public Optional<Usuario> findById(Integer id) {
+        return usuarioRepository.findById(id);
+    }
+
+    @Override
+    public List<Usuario> findAll() {
+        return usuarioRepository.findAll();
+    }
+
+    @Override
+    public Usuario save(Usuario u) {
+
+        Usuario usuarioExistente = usuarioRepository.findByUsername(u.getUsername());
+
+        if (usuarioExistente != null && !usuarioExistente.getIdUsuario().equals(u.getIdUsuario())) {
+
+            throw new RuntimeException("El nombre de usuario ya existe");
+        }
+
+        Usuario documentoExistente = usuarioRepository.findByTipoDocumentoAndNumeroDocumento(
+                u.getTipoDocumento(),
+                u.getNumeroDocumento());
+
+        if (documentoExistente != null && !documentoExistente.getIdUsuario().equals(u.getIdUsuario())) {
+
+            throw new RuntimeException("Ya existe un usuario con ese documento");
+        }
+
+        
+        Usuario emailExistente = usuarioRepository.findByEmail(u.getEmail());
+
+        	if (emailExistente != null && !emailExistente.getIdUsuario().equals(u.getIdUsuario())) {
+
+        	    throw new RuntimeException("Ya existe un usuario con este correo electrónico");
+        	}
+        return usuarioRepository.save(u);
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+        usuarioRepository.deleteById(id);
+    }
+
+    @Override
+    public Usuario login(String username, String password) {
+
+        Usuario usuario = usuarioRepository.findByUsername(username);
+
+        if (usuario == null) {
+            return null;
+        }
+
+        if (!usuario.getPassword().equals(password)) {
+            return null;
+        }
+
+        return usuario;
+    }
+}

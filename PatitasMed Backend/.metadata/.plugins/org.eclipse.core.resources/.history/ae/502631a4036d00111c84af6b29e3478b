@@ -1,0 +1,16 @@
+package com.sena.usuariopatitasmed.service;
+
+import java.util.Optional;
+
+import com.sena.patitasmed.entity.Usuario;
+
+import java.util.List;
+
+public interface UsuarioService {
+	
+	public Optional<Usuario> findById(Integer id);
+	public List<Usuario> findAll();
+	public Usuario save(Usuario u);
+	public void deleteById(Integer id);
+
+}

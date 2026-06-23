@@ -1,0 +1,106 @@
+package com.sena.patitasmed.entity;
+
+import java.time.LocalDate;
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "cita_medica")
+public class CitaMedica {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_cita")
+    private Integer idCita;
+
+    @Column(name = "nombre_clinica")
+    private String nombreClinica;
+    @Column(name = "nombre_veterinario")
+    private String nombreVeterinario;
+
+    @Column(name = "fecha_cita")
+    private LocalDate fechaCita;
+
+    @Column(name = "observaciones")
+    private String observaciones;
+
+    @Column(name = "estado")
+    private String estado;
+
+    @ManyToOne
+    @JoinColumn(name = "id_mascota")
+    private Mascota mascota;
+
+
+    public CitaMedica(Integer idCita, String nombreClinica, String nombreVeterinario, LocalDate fechaCita,
+			String observaciones, String estado, Mascota mascota) {
+		super();
+		this.idCita = idCita;
+		this.nombreClinica = nombreClinica;
+		this.nombreVeterinario = nombreVeterinario;
+		this.fechaCita = fechaCita;
+		this.observaciones = observaciones;
+		this.estado = estado;
+		this.mascota = mascota;
+	}
+
+	public CitaMedica() {
+        super();
+    }
+
+    public Integer getIdCita() {
+        return idCita;
+    }
+
+    public void setIdCita(Integer idCita) {
+        this.idCita = idCita;
+    }
+
+    public String getNombreClinica() {
+        return nombreClinica;
+    }
+
+    public void setNombreClinica(String nombreClinica) {
+        this.nombreClinica = nombreClinica;
+    }
+
+    public String getNombreVeterinario() {
+        return nombreVeterinario;
+    }
+
+    public void setNombreVeterinario(String nombreVeterinario) {
+        this.nombreVeterinario = nombreVeterinario;
+    }
+
+    public LocalDate getFechaCita() {
+        return fechaCita;
+    }
+
+    public void setFechaCita(LocalDate fechaCita) {
+        this.fechaCita = fechaCita;
+    }
+
+    public String getObservaciones() {
+        return observaciones;
+    }
+
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public Mascota getMascota() {
+        return mascota;
+    }
+
+    public void setMascota(Mascota mascota) {
+        this.mascota = mascota;
+    }
+}
