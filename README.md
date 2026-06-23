@@ -83,7 +83,7 @@ CREATE DATABASE patitasmed;
 ## Ejecución del Backend
 
 1. Abrir la carpeta PatitasMed Backend en Spring Boot.
-   App PatitasMed\PatitasMed Backend
+   PatitasMed Backend
    
 2. Esperar la descarga de dependencias Maven.
 3. Configurar las credenciales para la base de datos correctamente en Spring Boot:
@@ -120,7 +120,7 @@ http://localhost:8080
 ## Ejecución del Frontend
 
 1. Abrir la carpeta PatitasMed Frontend.
-   App PatitasMed\PatitasMed Frontend\frontpatitasmed
+   PatitasMed Frontend\frontpatitasmed
    
 2. Instalar dependencias:
 
